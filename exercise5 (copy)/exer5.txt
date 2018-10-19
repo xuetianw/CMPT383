@@ -1,0 +1,55 @@
+"fib" is a recursive function that has complexity O(2^n). 
+At n is 33 or higher it gives a number amount of function calls.
+Each function call consumes time and the compiler did't use tricks to improve the 
+performance, for example, cache function return values. Therefore it 
+takes long time to calculate time.
+
+
+Haskell refer thunk to its values that has not been computed yet.
+
+
+Things has no arguments, Haskell stores the list elements that have been calculated.
+We assume Haskell starts out knowing 
+
+things                           =  0 : 1 : <thunk1>
+tail things                      =  1 : <thunk1>
+zipWith (+) things(tail things)  = <thunk1>
+
+
+If it asks for take 2 things and we'll get [0,1],
+Haskell doesn't need to do morecalculation to get the result.
+
+If we ask for take 3 things, Haskell will get the 0 and 1, and then realise that 
+it needs to partly evaluate the thunk, in order to fully evaluate zipWith (+) things(tail things)
+it needs to sum the first two rows, but it can't fully do that,it can begin to sum the first two rows
+things                           =  0 : 1 : 1 : <thunk2>
+tail things                      =  1 : 1 : <thunk2>
+zipWith (+) things(tail things)  =  1 : <thunk2>
+
+note that the "1" in the 3rd row, and it automatically appeared in the first and second rows as well,
+since all three rows are sharing the same thunk. Because it didn't finish evaluating, it created a new 
+thunk containing the rest of the list, should that ever be needed.
+If take 50 fibs, Haskell already remembers the 0,1 and 1. But it needs to keep going. So it continues summing
+the first two rows.
+things                           =  0 : 1 : 1 : 2 : <thunk3>
+tail things                      =  1 : 1 : 2 : <thunk3>
+zipWith (+) things(tail things)  =  1 : 2 : <thunk3>
+...
+things                           =  0 : 1 : 1 : 2 : 3 : <thunk4>
+tail things                      =  1 : 1 : 2 : 3 : <thunk4>
+zipWith (+) things(tail things)  =  1 : 2 : 3 : <thunk4>
+
+And so on, until it has filled in 48 columns of the 3rd row, and thus has worked out the first 50 numbers.
+
+Haskell has lazy evluation. It leaves the infinite "rest" of the sequence as a thunk in case it ever needs anymore.
+
+Now if you ask for take 25 things, haskell will not evaluate it again-- it will just take the first 25 numbers from the list it has already calculated.
+
+
+things!!33 = 3524578   things!!45 = 1134903170
+
+because things function will not work in a typical language that does eager evaluation. It works 
+in haskell as it does lazy evaluation. So, if you ask for the first 5 fibonacci numbers, take 4 fibs,
+haskell only computes enough of sequence as required 
+
+
