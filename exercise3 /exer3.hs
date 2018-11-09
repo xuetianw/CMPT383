@@ -37,11 +37,14 @@ fact n = factrecurs n
   factrecurs n = n * factrecurs(n-1)
 
 
-fact' :: Integer -> Integer
-fact' n 
- | n == 1  = 1
- | n > 1   = n * fact'(n-1)
+-- fact' :: Integer -> Integer
+-- fact' n 
+--  | n == 1  = 1
+--  | n > 1   = n * fact'(n-1)
 
+
+fact' :: Integer -> Integer
+fact' a = foldr(*) 1 [1..a]
 
 
  -- Haskell Library and Dates
@@ -55,7 +58,7 @@ getDay2 (m,d) = d
 
 isFriday :: Day -> Bool
 isFriday a 
- | getDay2 (mondayStartWeek a) == 5   = True
+ | getDay2 (mondayStartWeek a) == 5    = True
  | otherwise         				   = False
 
 

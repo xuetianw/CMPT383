@@ -365,4 +365,7 @@ printHisto = do
     let bars = histogram vals
     mapM_ putStrLn bars
 
-    
+
+-- foldl' :: (a -> b -> a) -> a-> ta -> b
+foldl' f a [] = a
+foldl' f a (x:xs) = foldl' f (f a x)  xs

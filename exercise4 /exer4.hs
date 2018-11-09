@@ -1,28 +1,64 @@
 -- Hailstone, Again
+hailstone :: (Num a, Integral a) => a -> a
 hailstone n
  | even n = div n 2
  | otherwise = 3*n + 1
 
-hailSeq :: Integer -> [Integer]
-hailSeq n = hailSeqRecur n
- where 
- 	hailSeqRecur 1 = [1]
- 	hailSeqRecur n = [n] ++ hailSeqRecur (hailstone n)
+-- hailSeq 1 = [1]
+-- hailSeq a = [a] ++ hailSeq (hailstone a)
+hailSeq :: Integral a => a -> [a]
+hailSeq x 
+  | x == 1 = [1]
+  | otherwise = [x] ++ hailSeq (hailstone x)
 
 
--- Non-recursive
-hailLen 1 = 0
-hailLen n = 1 + hailLen (hailstone n)
+-- hailLen :: Integer -> Integer
+-- hailLen 1 = 0
+-- hailLen a = 1 + hailLen (hailstone a)
 
-hailSeq' :: Integer -> [Integer]
--- hailSeq' n = take (hailLen n + 1) (iterate hailstone n)
-hailSeq' n = (myTakeWhile (/=1) (iterate hailstone n)) ++ [1]
+hailLen :: (Num a, Integral a) => a -> a
+hailLen n = hailTail 0 n
+ where
+ 	hailTail a 1 = a
+ 	hailTail a n = hailTail (a+1) (hailstone n)
 
-myTakeWhile :: (a -> Bool) -> [a] -> [a]
-myTakeWhile f [] = []
-myTakeWhile f (x:xs) 
- | f x         = [x] ++ myTakeWhile f (xs)
- | otherwise   = []
+
+hailSeq' :: Int -> [Int]
+hailSeq' a = mytakeWhile (/=1) (myIterate hailstone a) ++ [1]
+
+myIterate :: (a -> a) -> a -> [a]
+myIterate f x = [x] ++ myIterate f (f x)
+
+
+mytakeWhile :: (a -> Bool) -> [a] -> [a]
+mytakeWhile f [] = []
+mytakeWhile f (x:xs) 
+ | f x =  [x] ++ mytakeWhile f xs
+ | otherwise = []
+
+
+-- hailSeq :: Integer -> [Integer]
+-- hailSeq n = hailSeqRecur n
+--  where 
+--  	hailSeqRecur 1 = [1]
+--  	hailSeqRecur n = [n] ++ hailSeqRecur (hailstone n)
+
+
+
+
+-- -- Non-recursive
+-- hailLen 1 = 0
+-- hailLen n = 1 + hailLen (hailstone n)
+
+-- hailSeq' :: Integer -> [Integer]
+-- -- hailSeq' n = take (hailLen n + 1) (iterate hailstone n)
+-- hailSeq' n = (myTakeWhile (/=1) (iterate hailstone n)) ++ [1]
+
+-- myTakeWhile :: (a -> Bool) -> [a] -> [a]
+-- myTakeWhile f [] = []
+-- myTakeWhile f (x:xs) 
+--  | f x         = [x] ++ myTakeWhile f (xs)
+--  | otherwise   = []
 
 
 -- myIterate :: (a -> a) -> a -> [a]
@@ -36,8 +72,14 @@ join a xs = foldl addFunc' "" xs
  where
  	addFunc' :: String -> String -> String
  	addFunc' b x2 
- 		|b == ""	    = x2
+ 		|b == ""	= x2
  		|otherwise 	= b ++ a ++ x2
+
+myFoldl f a [] = a
+myFoldl f a (x:xs) = myFoldl f (f a x) xs
+
+
+
 
 
 	 -- b ++ ((++) a x)

@@ -1,0 +1,53 @@
+1: C++11
+2: object oriented, Imperative programming, Procedural programming
+3: Compiled GCC
+4: Static types, Static binding
+5: C++ is mostly strongly typed since values are explicitly statically typed, but pointer/​reference casting allows the programmer to do weakly-typed things.
+6: Manual memory management
+7: 
+
+1) It has first-class functions
+C++ added lambda expressions in C++11.  Lambda expressions are a sign that a language has a lot of first-class function features: you can create a function when you need to and call/​store it. Also called anonymous functions.
+
+2): 
+
+A closure is a function (or class or other structure) with free variables bound to the scope where it was created.  It is a technique for implementing lexically scoped name binding in a language with first-class functions.
+
+In C++, the variables for the closure are given explicitly (in the lambda expression's [])
+#include <functional>
+std::function<bool (int)> divisibility_checker(int n) {
+    auto div_check = [n](int m) { return m%n == 0; };
+    return div_check;
+}
+
+
+8: 
+
+For parallel programming in C++, we use Intel TBB, offers a rich and complete approach to expressing parallelism in a C++ program
+and PASL which stands for Parallel Algorithm Scheduling Library. and  
+atomic types and addresses
+a thread class
+thread_local storage (which was just added into the draft standard a few months ago)
+mutual exclusion (mutex classes)
+condition variables - this is particularly nice for Windows, since condition variables are difficult to implement correctly in Win32. This means that eventually Microsoft should provide support for condition variables at least in the MSVC++ runtime, so it will be easy to get correct condition variable semantics on WIn32.
+
+
+1: Java 9
+2: object oriented, Imperative programming, Procedural programming
+3: bytecode compiled and executed by Java Virtual Machine (JVM)
+4: Static types, Static binding
+5: Java is mostly strongly typed since values are explicitly statically typed, but ​reference casting allows the programmer to do weakly-typed things.
+6: garbage collected
+7: 1) It has first-class functions
+Java added lambda expressions in Java 8
+Lambda expressions are a sign that a language has a lot of first-class function features: you can create a function when you need to and call/​store it. Also called anonymous functions.
+
+2) Java 8 or higher has closures, they can only capture final or "effectively final" non-local variables.
+
+8:
+concurrent programming:
+Programs written in Java have a reputation for being slower and requiring more memory than those written in C++.[49][50] However, Java programs' execution speed improved significantly with the introduction of just-in-time compilation in 1997/1998 for Java 1.1,[51] the addition of language features supporting better code analysis (such as inner classes, the StringBuilder class, optional assertions, etc.), and optimizations in the Java virtual machine, such as HotSpot becoming the default for Sun's JVM in 2000. With Java 1.5, the performance was improved with the addition of the java.util.concurrent package, including lock free implementations of the ConcurrentMaps and other multi-core collections, and it was improved further with Java 1.6.
+
+parallel programming
+If programmer are asking about pure parallel programming i.e. not concurrent programming then they should can find MPJExpress http://mpj-express.org/. It is a thread-safe implementation of mpiJava and it supports both distributed and shared memory models. 
+
