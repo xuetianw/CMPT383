@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 func Hailstone(x uint) uint {
@@ -41,6 +42,24 @@ func HailstoneSequenceAllocate(a uint) []uint {
 	return list
 }
 
+type Point struct {
+	x float64
+	y float64
+}
+
+func (p Point) String() string {
+	return fmt.Sprintf("%v %v", p.x, p.y)
+}
+
+func NewPoint(x float64, y float64) Point {
+	return Point{x, y}
+
+}
+
+func (p Point) Norm() float64 {
+	return math.Sqrt((p.x)*(p.x) + (p.y)*(p.y))
+}
+
 func main() {
 
 	fmt.Println(Hailstone(17))
@@ -59,5 +78,9 @@ func main() {
 	fmt.Println(HailstoneSequenceAllocate(18))
 
 	fmt.Println(countLenth(5))
+	pt := NewPoint(3, 4.5)
+	fmt.Println(pt) // should print (3, 4.5)
+	pt = NewPoint(3, 4)
+	fmt.Println(pt.Norm() == 5.0)
 
 }

@@ -62,40 +62,40 @@ func BenchmarkHailSeqAllocate(b *testing.B) {
 	benchmarkHailSeq(b, HailstoneSequenceAllocate)
 }
 
-//// Test the constructor function for a Point vs the struct literal creation.
-//func TestPointConstruct(t *testing.T) {
-//	ptConst := NewPoint(3, 4)
-//	ptLit := Point{3, 4}
-//	if ptConst != ptLit {
-//		t.Error("Constructor doesn't build the correct struct")
-//	}
-//}
-//
-//// Test the Point.String() method.
-//func TestPointString(t *testing.T) {
-//	pt := NewPoint(3, 4.5)
-//	s := pt.String()
-//	if s != "(3, 4.5)" {
-//		t.Errorf("Wrong string representation of Point: %#v", s)
-//	}
-//
-//	pt = NewPoint(-10.5, 0)
-//	s = pt.String()
-//	if s != "(-10.5, 0)" {
-//		t.Errorf("Wrong string representation of Point: %#v", s)
-//	}
-//}
-//
-//// Test the Point.Norm() method.
-//func TestPointNorm(t *testing.T) {
-//	ptConst := NewPoint(3, 4)
-//
-//	if ptConst.Norm() != 5.0 {
-//		t.Error("Wrong point norm:", ptConst.Norm())
-//	}
-//
-//	pt2 := Point{12.34, 23.45}
-//	if pt2.Norm() != 26.4986433615006 {
-//		t.Error("Wrong point norm:", pt2.Norm())
-//	}
-//}
+// Test the constructor function for a Point vs the struct literal creation.
+func TestPointConstruct(t *testing.T) {
+	ptConst := NewPoint(3, 4)
+	ptLit := Point{3, 4}
+	if ptConst != ptLit {
+		t.Error("Constructor doesn't build the correct struct")
+	}
+}
+
+// Test the Point.String() method.
+func TestPointString(t *testing.T) {
+	pt := NewPoint(3, 4.5)
+	s := pt.String()
+	if s != "(3, 4.5)" {
+		t.Errorf("Wrong string representation of Point: %#v", s)
+	}
+
+	pt = NewPoint(-10.5, 0)
+	s = pt.String()
+	if s != "(-10.5, 0)" {
+		t.Errorf("Wrong string representation of Point: %#v", s)
+	}
+}
+
+// Test the Point.Norm() method.
+func TestPointNorm(t *testing.T) {
+	ptConst := NewPoint(3, 4)
+
+	if ptConst.Norm() != 5.0 {
+		t.Error("Wrong point norm:", ptConst.Norm())
+	}
+
+	pt2 := Point{12.34, 23.45}
+	if pt2.Norm() != 26.4986433615006 {
+		t.Error("Wrong point norm:", pt2.Norm())
+	}
+}
