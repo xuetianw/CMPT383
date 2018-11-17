@@ -1,4 +1,4 @@
-package exer9
+package exercise9
 
 import (
 	"math/rand"

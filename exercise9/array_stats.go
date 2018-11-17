@@ -1,4 +1,4 @@
-package exer9
+package exercise9
 
 import (
 	"math"
@@ -7,8 +7,8 @@ import (
 )
 
 type Sum struct {
-	part1 int
-	part2 int
+	part1 float64
+	part2 float64
 }
 
 func RandomArray(length int, maxInt int) []int {
@@ -35,22 +35,25 @@ func MeanStddev(arr []int, chunks int) (mean, stddev float64) {
 	size := len(arr) / chunks
 	for i := 0; i < len(arr); i += size {
 		temp := arr[i : i+size]
+		//fmt.Println(temp,ch)
 		go calculation(temp, ch)
 	}
-	close(ch)
+	//fmt.Println(arr)
 
-	var sum1 int
-	var squrSum int
+	var sum1 float64 = 0
+	var squrSum float64 = 0
 
-	for item := range ch {
-		sum1 += item.part1
-		squrSum += item.part2
+	for i := 0; i < chunks; i++ {
+		p := <-ch
+		sum1 += p.part1
+		squrSum += p.part2
 	}
+	//close(ch)
 
-	mean = float64(sum1 / len(arr))
+	mean = (sum1 / float64(len(arr)))
 
-	part1 := (squrSum) / len(arr)
-	part2 := sum1 / len(arr)
+	part1 := (squrSum) / float64(len(arr))
+	part2 := sum1 / float64(len(arr)) * sum1 / float64(len(arr))
 
 	stddev = math.Sqrt(float64(part1 - part2))
 
@@ -58,14 +61,21 @@ func MeanStddev(arr []int, chunks int) (mean, stddev float64) {
 
 }
 
-func calculation(ints []int, sums chan Sum) {
-	var sum int
-	for i := 0; i < len(ints); i++ {
-		sum += ints[i]
+func calculation(arr []int, sums chan Sum) {
+	//fmt.Println(sums)
+	var sum, sumsquare float64
+	for i := 0; i < len(arr); i++ {
+		sum += float64(arr[i])
+		sumsquare += float64((arr[i]) * (arr[i]))
 	}
-	var sumSqu int
-	for i := 0; i < len(ints); i++ {
-		sumSqu += (ints[i]) * (ints[i])
-	}
-	sums <- Sum{sum, sumSqu}
+	sums <- Sum{sum, sumsquare}
 }
+
+//func calculatesum(a Partialsum, arr []int, ch chan Partialsum) {
+//	var sum,sumsquare float64
+//	for i :=0; i<len(arr); i++ {
+//		sum += float64(arr[i])
+//		sumsquare += float64(arr[i])*float64(arr[i])
+//	}
+//	ch <- Partialsum{sum,sumsquare}
+//}
