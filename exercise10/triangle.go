@@ -1,4 +1,4 @@
-package main
+package exercise10
 
 import (
 	"fmt"
@@ -64,11 +64,11 @@ func TurnDouble(t Transformable, angle float64) {
 	t.Rotate(angle)
 }
 
-func main() {
-	pt := Point{3, 4}
-	TurnDouble(&pt, 3*math.Pi/2)
-	fmt.Println(pt)
-	tri := Triangle{Point{1, 2}, Point{-3, 4}, Point{5, -6}}
-	TurnDouble(&tri, math.Pi)
-	fmt.Println(tri)
-}
+//func main() {
+//	pt := Point{3, 4}
+//	TurnDouble(&pt, 3*math.Pi/2)
+//	fmt.Println(pt)
+//	tri := Triangle{Point{1, 2}, Point{-3, 4}, Point{5, -6}}
+//	TurnDouble(&tri, math.Pi)
+//	fmt.Println(tri)
+//}
