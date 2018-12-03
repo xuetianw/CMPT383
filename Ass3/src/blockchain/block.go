@@ -73,8 +73,9 @@ func (blk Block) ValidHash() bool {
 		return false
 	}
 
-	for i := length - int(blk.Difficulty); i < length; i++ {
-		if hash[i] != byte(0) {
+	lenthof_zero := blk.Difficulty
+	for i := length - int(lenthof_zero); i < length; i++ {
+		if hash[i] != 0 {
 			return false
 		}
 	}
